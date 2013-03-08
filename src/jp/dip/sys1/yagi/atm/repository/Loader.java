@@ -4,6 +4,7 @@
 package jp.dip.sys1.yagi.atm.repository;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
@@ -12,6 +13,9 @@ import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import jp.dip.sys1.yagi.atm.util.Logger;
+
+import org.apache.commons.io.FileUtils;
 import org.json.JSONObject;
 
 /**
@@ -19,7 +23,7 @@ import org.json.JSONObject;
  * 
  */
 public class Loader {
-
+    private final static String TAG = Loader.class.getSimpleName();
     private final static String DEFAULT_REPOSITORY_COMMITS_API_URL = "https://api.github.com/repos/sys1yagi/atm-repository/commits";
     private final static String DEFAULT_REPOSITORIES_JSON_URL = "https://raw.github.com/sys1yagi/atm-repository/master/repositories.json";
     private final static String DEFAULT_CACHE_STORE_PATH = "cache";
@@ -34,15 +38,58 @@ public class Loader {
      * check sha.
      * @return
      */
-    /* package */boolean isModifiedRepositoriesJson(){
+    /* package */String getHeadRepositoriesJsonSHA(){
         
         
+        return null;
+    }
+    
+    /* package */boolean isModifiedRepositoriesJson(String headSHA){
+        if(headSHA == null){
+            return true;
+        }
+        File dir = getCacheDirs();
+        File cacheFile = new File(dir, headSHA);
+        return !cacheFile.exists();
+    }
+    
+    private File getCacheDirs(){
+        File dir = new File(mCacheStorePath+"/");
+        if(!dir.exists()){
+            dir.mkdirs();
+        }
+        return dir;
+    }
+    
+    /* package */boolean clearCache(){
+        File dir = getCacheDirs();
+        if(dir != null && dir.exists()){
+            try{
+                FileUtils.deleteDirectory(dir);
+                return true;
+            }catch(IOException e){
+                e.printStackTrace();
+                return false;
+            }
+        }
         return true;
     }
     
-    /* package */boolean saveCache(JSONObject cache){
+    /* package */boolean saveCache(String name, JSONObject cacheData){
+        if(name == null || cacheData == null){
+            Logger.d(TAG, "name or cache is null.");
+            return false;
+        }
+        File dir = getCacheDirs();
+        File cacheFile = new File(dir, name);
         
-        return false;
+        try{
+            FileUtils.write(cacheFile, cacheData.toString());
+            return true;
+        }catch(IOException e){
+            e.printStackTrace();
+            return false;
+        }
     }
     /* package */JSONObject loadRepositoriesJsonCache(){
         
@@ -77,7 +124,8 @@ public class Loader {
      * @return
      */
     /* package */JSONObject loadRepositoriesJson() {
-        if(isModifiedRepositoriesJson()){
+        String headSHA = getHeadRepositoriesJsonSHA();
+        if(isModifiedRepositoriesJson(headSHA)){
             return loadRepositoriesJsonNetwork();
         }
         else{
