@@ -5,7 +5,6 @@ import static org.junit.Assert.assertThat;
 
 import java.io.File;
 
-import org.hamcrest.core.IsNull;
 import org.json.JSONObject;
 import org.junit.After;
 import org.junit.Test;
@@ -58,14 +57,6 @@ public class LoaderTest{
     }
     
     //hash check
-    @Test
-    public void testGetSHA_null(){
-        Loader loader = new Loader();
-        loader.setCacheStorePath("test_cache");
-        assertThat(true, is(loader.clearCache()));
-        String head = loader.getHeadRepositoriesJsonSHA();
-        assertThat(true, is(head == null));
-    }
     @Test
     public void testGetSHA_not_null(){
         testSaveCache();

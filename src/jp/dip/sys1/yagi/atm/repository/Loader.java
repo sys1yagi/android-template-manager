@@ -47,11 +47,9 @@ public class Loader {
         String jsonString = loadNetwork(DEFAULT_REPOSITORY_COMMITS_API_URL);
         if(jsonString != null){
             JSONArray jsonArray = new JSONArray(jsonString);
-            for(int i = 0; i < jsonArray.length(); i++){
-                JSONObject json = jsonArray.getJSONObject(i);
-                System.out.println(json);
+            if(jsonArray.length() >= 1){
+                return jsonArray.getJSONObject(0).getString("sha");
             }
-            
         }
         return null;
     }
