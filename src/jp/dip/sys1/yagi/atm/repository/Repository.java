@@ -4,6 +4,7 @@
 package jp.dip.sys1.yagi.atm.repository;
 
 /**
+ * 
  * @author yagitoshihiro
  *
  */
@@ -24,6 +25,5 @@ public class Repository {
     public String getRepositoryName() {
         return mRepositoryName;
     }
-    
 
 }
