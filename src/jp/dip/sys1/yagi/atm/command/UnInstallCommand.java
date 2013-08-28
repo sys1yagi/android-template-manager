@@ -3,14 +3,13 @@
  */
 package jp.dip.sys1.yagi.atm.command;
 
-import java.util.List;
 
 /**
  * @author yagitoshihiro
- *
+ * 
  */
-public class UnInstallCommand implements ICommand {
-
+public class UnInstallCommand extends Command {
+    //atm uninstall
     /**
      * 
      */
@@ -18,12 +17,14 @@ public class UnInstallCommand implements ICommand {
         // TODO Auto-generated constructor stub
     }
 
-
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see jp.dip.sys1.yagi.atm.command.ICommand#perform(java.util.List)
      */
-    public void perform(List<Option> options) {
+    @Override
+    public void perform() {
         // TODO Auto-generated method stub
-        
+
     }
 }

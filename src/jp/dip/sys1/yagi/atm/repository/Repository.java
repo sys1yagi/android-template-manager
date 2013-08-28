@@ -4,18 +4,19 @@
 package jp.dip.sys1.yagi.atm.repository;
 
 /**
- * 
+ * not use yet.
  * @author yagitoshihiro
- *
+ * 
  */
 public class Repository {
-
-    private String mRepositoryURL = null;
     private String mRepositoryName = null;
-    
-    public Repository(String repositoryURL, String repositoryName) {
-        this.mRepositoryURL = repositoryURL;
+    private String mRepositoryURL = null;
+    private String mRepositoryCommitsAPI = null;
+
+    public Repository(String repositoryName, String repositoryURL, String repositoryCommitsAPI) {
         this.mRepositoryName = repositoryName;
+        this.mRepositoryURL = repositoryURL;
+        this.mRepositoryCommitsAPI = repositoryCommitsAPI;
     }
 
     public String getRepositoryURL() {
@@ -26,4 +27,7 @@ public class Repository {
         return mRepositoryName;
     }
 
+    public String getRepositoryCommitsAPI() {
+        return mRepositoryCommitsAPI;
+    }
 }

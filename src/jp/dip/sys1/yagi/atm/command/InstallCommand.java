@@ -3,14 +3,16 @@
  */
 package jp.dip.sys1.yagi.atm.command;
 
-import java.util.List;
 
 /**
  * @author yagitoshihiro
  *
  */
-public class InstallCommand implements ICommand{
-
+public class InstallCommand extends Command{
+    //atm install
+    //-f
+    //-sdk_path
+    
     /**
      * 
      */
@@ -21,7 +23,8 @@ public class InstallCommand implements ICommand{
     /* (non-Javadoc)
      * @see jp.dip.sys1.yagi.atm.command.ICommand#perform(java.util.List)
      */
-    public void perform(List<Option> options) {
+    @Override
+    public void perform() {
         // TODO Auto-generated method stub
         
     }

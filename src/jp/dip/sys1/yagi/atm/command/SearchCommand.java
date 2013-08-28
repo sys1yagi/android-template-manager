@@ -3,14 +3,13 @@
  */
 package jp.dip.sys1.yagi.atm.command;
 
-import java.util.List;
 
 /**
  * @author yagitoshihiro
  *
  */
-public class SearchCommand implements ICommand {
-
+public class SearchCommand extends Command {
+    //atm search keyword
     /**
      * 
      */
@@ -20,7 +19,8 @@ public class SearchCommand implements ICommand {
     /* (non-Javadoc)
      * @see jp.dip.sys1.yagi.atm.command.ICommand#perform(java.util.List)
      */
-    public void perform(List<Option> options) {
+    @Override
+    public void perform() {
         // TODO Auto-generated method stub
         
     }

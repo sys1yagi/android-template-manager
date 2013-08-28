@@ -1,0 +1,1 @@
+java -classpath android-template-manager-1.0.jar:commons-io-2.4.jar jp.dip.sys1.yagi.atm.Main $@

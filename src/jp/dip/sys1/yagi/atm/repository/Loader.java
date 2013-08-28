@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -35,7 +36,7 @@ public class Loader {
      * 
      */
     public Loader() {
-        mCacheStorePath = DEFAULT_CACHE_STORE_PATH;
+        this.mCacheStorePath = DEFAULT_CACHE_STORE_PATH;
     }
 
     /**
@@ -45,9 +46,9 @@ public class Loader {
      */
     /* package */String getHeadRepositoriesJsonSHA() {
         String jsonString = loadNetwork(DEFAULT_REPOSITORY_COMMITS_API_URL);
-        if(jsonString != null){
+        if (jsonString != null) {
             JSONArray jsonArray = new JSONArray(jsonString);
-            if(jsonArray.length() >= 1){
+            if (jsonArray.length() >= 1) {
                 return jsonArray.getJSONObject(0).getString("sha");
             }
         }
@@ -108,15 +109,26 @@ public class Loader {
         }
     }
 
-    /* package */JSONObject loadRepositoriesJsonCache() {
-
+    /* package */JSONObject loadRepositoriesJsonCache(String sha) {
+        File dir = getCacheDirs();
+        File cacheFile = new File(dir, sha);
+        try {
+            String jsonString = FileUtils.readFileToString(cacheFile);
+            return new JSONObject(jsonString);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
-    /* package */JSONObject loadRepositoriesJsonNetwork() {
+    /* package */JSONObject loadRepositoriesJsonNetwork(String sha) {
         String jsonString = loadNetwork(DEFAULT_REPOSITORIES_JSON_URL);
-        if(jsonString != null){
-            return new JSONObject(jsonString);
+        if (jsonString != null) {
+            JSONObject json = new JSONObject(jsonString);
+            if (!saveCache(sha, json)) {
+                Logger.e(TAG, "cache save error...");
+            }
+            return json;
         }
         return null;
     }
@@ -157,32 +169,23 @@ public class Loader {
         return null;
     }
 
-    /**
-     * 
-     * @return
-     */
-    /* package */JSONObject loadRepositoriesJson() {
+    public JSONObject loadRepositoriesJson() {
         String headSHA = getHeadRepositoriesJsonSHA();
         if (isModifiedRepositoriesJson(headSHA)) {
-            return loadRepositoriesJsonNetwork();
+            Logger.d(TAG, "load network...");
+            return loadRepositoriesJsonNetwork(headSHA);
         } else {
-            return loadRepositoriesJsonCache();
+            Logger.d(TAG, "load cache...");
+            return loadRepositoriesJsonCache(headSHA);
         }
     }
 
-    public List<Repository> getRepositories() {
-
-        // JSONObject object = new JSONObject();
-
-        return null;
-    }
-
     public String getCacheStorePath() {
-        return mCacheStorePath;
+        return this.mCacheStorePath;
     }
 
     public void setCacheStorePath(String cacheStorePath) {
-        mCacheStorePath = cacheStorePath;
+        this.mCacheStorePath = cacheStorePath;
     }
 
 }

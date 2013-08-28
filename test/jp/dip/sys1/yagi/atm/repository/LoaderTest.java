@@ -1,7 +1,6 @@
 package jp.dip.sys1.yagi.atm.repository;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
@@ -16,8 +15,8 @@ public class LoaderTest {
     @AfterClass
     public static void cleanup() {
         Loader loader = new Loader();
-        loader.setCacheStorePath("test_cache");
-        loader.clearCache();
+        //loader.setCacheStorePath("test_cache");
+        //loader.clearCache();
     }
 
     @Test
