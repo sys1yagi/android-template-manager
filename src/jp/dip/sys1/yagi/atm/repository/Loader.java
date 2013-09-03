@@ -39,6 +39,28 @@ public class Loader {
         this.mCacheStorePath = DEFAULT_CACHE_STORE_PATH;
     }
 
+    
+    private JSONArray getArray(JSONObject json, String key) {
+        if (json.has(key)) {
+            return json.getJSONArray(key);
+        }
+        return null;
+    }
+
+    private JSONObject getObject(JSONObject json, String key) {
+        if (json.has(key)) {
+            return json.getJSONObject(key);
+        }
+        return null;
+    }
+
+    private String getString(JSONObject json, String key) {
+        if (json.has(key)) {
+            return json.getString(key);
+        }
+        return null;
+    }
+    
     /**
      * get head repository sha.
      * 
@@ -168,21 +190,49 @@ public class Loader {
         }
         return null;
     }
-    public JSONObject loadRepositoriesJson() {
+    public List<Repository> loadRepositoriesJson() {
         return this.loadRepositoriesJson(false);
     }
-    public JSONObject loadRepositoriesJson(boolean isCacheOnly) {
-        
+    public List<Repository> loadRepositoriesJson(boolean isCacheOnly) {
         //TODO cache only = true
+        
+        JSONObject json = null;
         
         String headSHA = getHeadRepositoriesJsonSHA();
         if (isModifiedRepositoriesJson(headSHA)) {
             Logger.d(TAG, "load network...");
-            return loadRepositoriesJsonNetwork(headSHA);
+            json = loadRepositoriesJsonNetwork(headSHA);
         } else {
             Logger.d(TAG, "load cache...");
-            return loadRepositoriesJsonCache(headSHA);
+            json = loadRepositoriesJsonCache(headSHA);
         }
+        if(json != null){
+            //create repo list
+            JSONArray repositories = getArray(json, "repositories");
+            JSONObject nameMap = getObject(json, "package_name_map");
+            if (repositories == null) {
+                System.out.println("load error: repositories is null.");
+                return null;
+            }
+            if (nameMap == null) {
+                System.out.println("load error: nameMap is null.");
+                return null;
+            }
+
+            List<Repository> list = new ArrayList<>();
+            for (int i = 0; i < repositories.length(); i++) {
+                JSONObject repository = repositories.getJSONObject(i);
+                String name = getString(repository, "name");
+                String url = getString(repository, "url");
+                String version = getString(repository, "version");
+                if (nameMap.has(name)) {
+                    name = getString(nameMap, name);
+                }
+                list.add(new Repository(name, url, version));
+            }
+            return list;
+        }
+        return null;
     }
 
     public String getCacheStorePath() {

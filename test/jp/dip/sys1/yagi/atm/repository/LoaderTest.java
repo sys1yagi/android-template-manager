@@ -5,6 +5,7 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
 import java.io.File;
+import java.util.List;
 
 import org.json.JSONObject;
 import org.junit.AfterClass;
@@ -15,8 +16,8 @@ public class LoaderTest {
     @AfterClass
     public static void cleanup() {
         Loader loader = new Loader();
-        //loader.setCacheStorePath("test_cache");
-        //loader.clearCache();
+        loader.setCacheStorePath("test_cache");
+        loader.clearCache();
     }
 
     @Test
@@ -25,7 +26,7 @@ public class LoaderTest {
         loader.setCacheStorePath("test_cache");
         assertThat(loader.clearCache(), is(true));
 
-        JSONObject object = loader.loadRepositoriesJson();
+        List<Repository> object = loader.loadRepositoriesJson();
 
         assertThat(object, notNullValue());
     }

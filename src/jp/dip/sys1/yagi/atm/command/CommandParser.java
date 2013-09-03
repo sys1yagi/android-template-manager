@@ -27,10 +27,10 @@ public class CommandParser {
     }
 
     private Command createCommand(String name) {
-        if(name == null){
+        if (name == null) {
             return null;
         }
-        switch(name){
+        switch (name) {
         case "list":
             return new ListCommand();
         case "search":
@@ -39,23 +39,22 @@ public class CommandParser {
             return new InstallCommand();
         case "uninstall":
             return new UnInstallCommand();
-        
+
         }
         return null;
     }
 
     private Option createOption(String[] args, int pos) {
-        if(args != null && args.length > pos){
+        if (args != null && args.length > pos) {
             Option option = new Option();
-            if(args[pos].startsWith("-")){
+            if (args[pos].startsWith("-")) {
                 option.setName(args[pos].replace("-", ""));
-                if(args.length > pos + 1){
-                    if(!args[pos+1].startsWith("-")){
+                if (args.length > pos + 1) {
+                    if (!args[pos + 1].startsWith("-")) {
                         option.setParam(args[pos + 1]);
                     }
                 }
-            }
-            else{
+            } else {
                 option.setName(args[pos]);
             }
             return option;
@@ -72,7 +71,7 @@ public class CommandParser {
             return null;
         }
         Command command = createCommand(args[0]);
-        if(command == null){
+        if (command == null) {
             return null;
         }
         // options
