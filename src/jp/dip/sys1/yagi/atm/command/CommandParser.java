@@ -27,10 +27,20 @@ public class CommandParser {
     }
 
     private Command createCommand(String name) {
-        if ("list".equals(name)) {
-            return new ListCommand();
+        if(name == null){
+            return null;
         }
-
+        switch(name){
+        case "list":
+            return new ListCommand();
+        case "search":
+            return new SearchCommand();
+        case "install":
+            return new InstallCommand();
+        case "uninstall":
+            return new UnInstallCommand();
+        
+        }
         return null;
     }
 
@@ -38,7 +48,7 @@ public class CommandParser {
         if(args != null && args.length > pos){
             Option option = new Option();
             if(args[pos].startsWith("-")){
-                option.setName(args[pos]);
+                option.setName(args[pos].replace("-", ""));
                 if(args.length > pos + 1){
                     if(!args[pos+1].startsWith("-")){
                         option.setParam(args[pos + 1]);

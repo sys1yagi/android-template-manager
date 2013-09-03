@@ -168,8 +168,13 @@ public class Loader {
         }
         return null;
     }
-
     public JSONObject loadRepositoriesJson() {
+        return this.loadRepositoriesJson(false);
+    }
+    public JSONObject loadRepositoriesJson(boolean isCacheOnly) {
+        
+        //TODO cache only = true
+        
         String headSHA = getHeadRepositoriesJsonSHA();
         if (isModifiedRepositoriesJson(headSHA)) {
             Logger.d(TAG, "load network...");

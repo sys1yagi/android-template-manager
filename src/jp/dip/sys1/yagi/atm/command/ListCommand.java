@@ -13,7 +13,9 @@ import org.json.JSONObject;
  * 
  */
 public class ListCommand extends Command {
-    //TODO clear cache option
+    //TODO
+    //clear
+    //cache
     
     
     private JSONArray getArray(JSONObject json, String key) {
@@ -47,7 +49,7 @@ public class ListCommand extends Command {
         System.out.println("load template list...");
         Loader loader = new Loader();
         JSONObject json = loader.loadRepositoriesJson();
-
+        //TODO json to class object.
         JSONArray repositories = getArray(json, "repositories");
         JSONObject nameMap = getObject(json, "package_name_map");
         if (repositories == null) {
