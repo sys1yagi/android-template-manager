@@ -8,7 +8,9 @@ repositories {
     mavenCentral()
 }
 dependencies {
-    compile group:'commons-io', name:'commons-io', version:'2.4'
+    compile('commons-io:commons-io:2.4'){
+			exclude module: 'shared'
+		}
     
     testCompile group: 'junit', name: 'junit', version: '4.+'   
 }
@@ -26,3 +28,6 @@ sourceSets{
     }
 }
 
+task release(type: Copy, dependsOn:[assemble]) {
+    from configurations.compile into "${buildDir}/libs"
+}
