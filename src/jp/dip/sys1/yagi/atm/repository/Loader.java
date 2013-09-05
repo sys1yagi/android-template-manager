@@ -224,11 +224,10 @@ public class Loader {
                 JSONObject repository = repositories.getJSONObject(i);
                 String name = getString(repository, "name");
                 String url = getString(repository, "url");
-                String version = getString(repository, "version");
                 if (nameMap.has(name)) {
                     name = getString(nameMap, name);
                 }
-                list.add(new Repository(name, url, version));
+                list.add(new Repository(name, url));
             }
             return list;
         }

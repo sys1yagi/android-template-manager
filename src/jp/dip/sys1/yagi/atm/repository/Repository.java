@@ -12,13 +12,12 @@ package jp.dip.sys1.yagi.atm.repository;
 public class Repository {
     private String mRepositoryName = null;
     private String mRepositoryURL = null;
-    private String mVersion = null;
+    //private String mVersion = null;
     // TODO description?
 
-    public Repository(String repositoryName, String repositoryURL, String version) {
+    public Repository(String repositoryName, String repositoryURL) {
         this.mRepositoryName = repositoryName;
         this.mRepositoryURL = repositoryURL;
-        this.mVersion = version;
     }
 
     public String getRepositoryURL() {
@@ -29,12 +28,8 @@ public class Repository {
         return mRepositoryName;
     }
 
-    public String getVersion() {
-        return mVersion;
-    }
-
     @Override
     public String toString() {
-        return mRepositoryName + "(" + mVersion + ") : " + mRepositoryURL;
+        return mRepositoryName + " : " + mRepositoryURL;
     }
 }

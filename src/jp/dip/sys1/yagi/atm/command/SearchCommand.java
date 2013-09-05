@@ -39,7 +39,6 @@ public class SearchCommand extends Command {
             if (pattern.matcher(repo.getRepositoryName()).find()) {
                 System.out.println(repo);
             }
-            System.out.println(repo);
         }
     }
 }

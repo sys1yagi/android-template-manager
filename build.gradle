@@ -3,6 +3,8 @@ apply plugin: 'eclipse'
 
 sourceCompatibility = 1.7
 version = '1.0'
+archivesBaseName = "atm"
+releaseDir = "release"
 
 repositories {
     mavenCentral()
@@ -25,7 +27,16 @@ sourceSets{
     }
 }
 
-task Release(type: Copy, dependsOn:[assemble]) {
-		println configurations.compile.files
-    from configurations.compile into "${buildDir}/libs"
+task copyAtm(type:Copy){
+//TODO atmスクリプトもここでジェネレートする
+	from "atm" into "${releaseDir}"
 }
+task copyLibs(type:Copy){
+	from "${buildDir}/libs" into "${releaseDir}/libs"
+    from configurations.compile into "${releaseDir}/libs"
+}
+task Release(dependsOn:[assemble]) {
+}
+Release.dependsOn assemble
+Release.dependsOn copyAtm
+Release.dependsOn copyLibs
