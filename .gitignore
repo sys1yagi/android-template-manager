@@ -11,5 +11,6 @@ build
 .gradle
 test_cache
 release
+cache
 
 .classpath

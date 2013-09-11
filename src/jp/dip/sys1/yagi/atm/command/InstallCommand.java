@@ -3,6 +3,8 @@
  */
 package jp.dip.sys1.yagi.atm.command;
 
+import jp.dip.sys1.yagi.atm.util.Environment;
+
 
 /**
  * @author yagitoshihiro
@@ -25,7 +27,10 @@ public class InstallCommand extends Command{
      */
     @Override
     public void perform() {
-        // TODO Auto-generated method stub
-        
+        Environment env = Environment.getInstance();
+        if(env.getInstallPath() == null){
+            //TODO Exception?
+            return;
+        }
     }
 }

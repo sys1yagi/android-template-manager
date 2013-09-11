@@ -17,5 +17,5 @@ public abstract class Command {
     public List<Option> getOptions(){
         return mOptions;
     }
-    public abstract void perform();
+    public abstract void perform() throws CommandException;
 }

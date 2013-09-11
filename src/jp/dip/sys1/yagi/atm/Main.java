@@ -4,11 +4,12 @@
 package jp.dip.sys1.yagi.atm;
 
 import jp.dip.sys1.yagi.atm.command.Command;
+import jp.dip.sys1.yagi.atm.command.CommandException;
 import jp.dip.sys1.yagi.atm.command.CommandParser;
 
 /**
  * @author yagitoshihiro
- *
+ * 
  */
 public class Main {
     /**
@@ -16,24 +17,25 @@ public class Main {
      */
     public static void main(String[] args) {
 
-        //atm update
+        // atm update
 
+        // atm list
 
-            
-        //atm list
-          
         CommandParser parser = CommandParser.getInstance();
         Command command = parser.parse(args);
-        if(command == null){
-            //usage
+        if (command == null) {
+            // usage
             System.out.println("Usage:");
             System.out.println("\tatm <command> <options>");
             System.out.println();
             System.out.println("Commands:");
-            //TODO command Usage
+            // TODO command Usage
+        } else {
+            try {
+                command.perform();
+            } catch (CommandException e) {
+                e.printStackTrace();
+            }
         }
-        else{
-            command.perform();
-        }
-    }    
+    }
 }

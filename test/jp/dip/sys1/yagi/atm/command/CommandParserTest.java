@@ -6,6 +6,7 @@ package jp.dip.sys1.yagi.atm.command;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
@@ -76,7 +77,11 @@ public class CommandParserTest {
         assertThat(command.getOptions().size(), is(1));
         
         assertThat(command.getOptions().get(0).getName(), is("sample"));
-        command.perform();
+        try{
+            command.perform();
+        }catch(CommandException e){
+            fail(e.getMessage());
+        }
     }
     
     //install
