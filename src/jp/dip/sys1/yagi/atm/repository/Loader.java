@@ -222,12 +222,13 @@ public class Loader {
             List<Repository> list = new ArrayList<>();
             for (int i = 0; i < repositories.length(); i++) {
                 JSONObject repository = repositories.getJSONObject(i);
-                String name = getString(repository, "name");
+                String id = getString(repository, "name");
                 String url = getString(repository, "url");
-                if (nameMap.has(name)) {
-                    name = getString(nameMap, name);
+                String name = null;
+                if (nameMap.has(id)) {
+                    name = getString(nameMap, id);
                 }
-                list.add(new Repository(name, url));
+                list.add(new Repository(id, name, url));
             }
             return list;
         }

@@ -13,7 +13,7 @@ import jp.dip.sys1.yagi.atm.repository.Repository;
  * 
  */
 public class ListCommand extends Command {
-    //TODO
+    //TODO implement options.
     //clear
     //cache
     public void perform() {

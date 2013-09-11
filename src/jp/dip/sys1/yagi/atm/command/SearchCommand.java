@@ -36,7 +36,11 @@ public class SearchCommand extends Command {
         List<Repository> repositories = loader.loadRepositoriesJson();
 
         for (Repository repo : repositories) {
-            if (pattern.matcher(repo.getRepositoryName()).find()) {
+            String id = repo.getRepositoryId();
+            String name = repo.getRepositoryName();
+            if (id != null && pattern.matcher(id).find()) {
+                System.out.println(repo);
+            } else if (name != null && pattern.matcher(name).find()) {
                 System.out.println(repo);
             }
         }

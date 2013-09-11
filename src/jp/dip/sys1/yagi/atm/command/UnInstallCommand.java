@@ -14,7 +14,7 @@ public class UnInstallCommand extends Command {
      * 
      */
     public UnInstallCommand() {
-        // TODO Auto-generated constructor stub
+
     }
 
     /*
@@ -24,7 +24,7 @@ public class UnInstallCommand extends Command {
      */
     @Override
     public void perform() {
-        // TODO Auto-generated method stub
+        // TODO not yet implemented
 
     }
 }

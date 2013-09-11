@@ -5,7 +5,7 @@ package jp.dip.sys1.yagi.atm.command;
 
 /**
  * @author yagitoshihiro
- *
+ * 
  */
 public class CommandException extends Exception {
 
@@ -13,7 +13,7 @@ public class CommandException extends Exception {
      * 
      */
     public CommandException() {
-        // TODO Auto-generated constructor stub
+
     }
 
     /**
@@ -21,7 +21,6 @@ public class CommandException extends Exception {
      */
     public CommandException(String arg0) {
         super(arg0);
-        // TODO Auto-generated constructor stub
     }
 
     /**
@@ -29,7 +28,6 @@ public class CommandException extends Exception {
      */
     public CommandException(Throwable arg0) {
         super(arg0);
-        // TODO Auto-generated constructor stub
     }
 
     /**
@@ -38,7 +36,6 @@ public class CommandException extends Exception {
      */
     public CommandException(String arg0, Throwable arg1) {
         super(arg0, arg1);
-        // TODO Auto-generated constructor stub
     }
 
 }
